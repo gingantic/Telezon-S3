@@ -1,29 +1,27 @@
-from telegram import Update
-from telegram.ext import ContextTypes, MessageHandler, filters
+from __future__ import annotations
 
-from app.storage.telegram.bot import updater
+import asyncio
 
+from telethon import TelegramClient, events
 
-# Run this file with bot in channel as admin to get channel_id use in CID enviroment variable
-async def cid(update: Update, _: ContextTypes.DEFAULT_TYPE):
-    chat_id = update.channel_post.chat.id
-    print(f"CID: {chat_id}")
-    text = update.channel_post.text
-
-    if text == "cid":
-        await update.channel_post.reply_text(str(chat_id))
+from app.core.config import TELEGRAM_API_HASH, TELEGRAM_API_ID, TOKEN
 
 
-def main():
+async def main() -> None:
     print("Add your bot with privacy mode disabled as admin in your channel")
-    print(
-        "Text in your channel `cid` to get channel id and setup CID enviroment variable"
-    )
+    print("Type `cid` in your channel to receive the channel id and configure the CID environment variable")
 
-    updater.add_handler(MessageHandler(filters.TEXT, cid))
+    client = TelegramClient("bot_setup", TELEGRAM_API_ID, TELEGRAM_API_HASH, bot_token=TOKEN)
 
-    updater.run_polling()
+    @client.on(events.NewMessage(pattern="cid"))
+    async def cid_handler(event):
+        chat_id = event.chat_id
+        print(f"CID: {chat_id}")
+        await event.reply(str(chat_id))
+
+    async with client:
+        await client.run_until_disconnected()
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

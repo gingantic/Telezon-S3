@@ -5,6 +5,6 @@ from app.storage.telegram import (  # noqa: F401
 )
 
 # You can use TelegramBotStorage or TelegramAccountStorage
-# TelegramBotStorage uses telegram bot api through python-telegram-bot
-# TelegramAccountStorage uses MTProto through pyrogram
+# TelegramBotStorage uses Telethon with a bot token (Bot API)
+# TelegramAccountStorage uses Telethon with a user session (MTProto)
 storage: Storage = TelegramAccountStorage()
