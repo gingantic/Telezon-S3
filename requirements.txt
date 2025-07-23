@@ -707,3 +707,5 @@ websockets==13.1 ; python_version >= "3.12" and python_version < "4.0" \
     --hash=sha256:f1c3cf67185543730888b20682fb186fc8d0fa6f07ccc3ef4390831ab4b388d9 \
     --hash=sha256:f48c749857f8fb598fb890a75f540e3221d0976ed0bf879cf3c7eef34151acee \
     --hash=sha256:f779498eeec470295a2b1a5d97aa1bc9814ecd25e1eb637bd9d1c73a327387f6
+telethon
+tgcrypto
